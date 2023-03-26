@@ -1,10 +1,49 @@
 <template>
   <main class="app">
     <h1>Quiz App</h1>
-    <!-- section question -->
-      <!-- questions -->
-      <!-- next button -->
-    <!-- section result -->
+    <section class="quiz">
+      <div class="quiz-info">
+        <span class="question">{{ questions[0].question }}</span>
+        <span class="score">Score {{ 1 }}/{{ 3 }}</span>
+      </div>
+
+      <div class="options">
+        <label 
+            class="`option correct`"
+        >
+          <input 
+            type="radio"
+          >
+          <span>{{ 1 }}</span>
+        </label>
+
+        <label 
+            class="`option correct`"
+        >
+          <input 
+            type="radio"
+          >
+          <span>{{2 }}</span>
+        </label>
+
+        <label 
+            class="`option correct`"
+        >
+          <input 
+            type="radio"
+          >
+          <span>{{ 3 }}</span>
+        </label>
+      </div>
+
+      <button>
+        {{ 
+            'Next Question'
+        }}
+      >
+
+      </button>
+    </section>
   </main>
 </template>
 
@@ -43,6 +82,7 @@ const questions = ref([
       selected: null
     },
 ])
+
 </script>
 
 <style></style>
