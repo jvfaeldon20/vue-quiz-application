@@ -3,42 +3,45 @@
     <h1>Quiz App</h1>
     <section class="quiz">
       <div class="quiz-info">
-        <span class="question">{{ questions[0].question }}</span>
-        <span class="score">Score {{ 1 }}/{{ 3 }}</span>
+        <span class="question">{{ getCurrentQuestion.question }}</span>
+        <span class="score">Score {{ score }}/{{ questions.length }}</span>
       </div>
 
       <div class="options">
         <label 
-            class="`option correct`"
+            v-for="(option, index) in getCurrentQuestion.options" 
+            :key="index"
+            :class="`option ${
+                getCurrentQuestion.selected == index 
+                  ? index == getCurrentQuestion.answer 
+                      ? 'correct':'wrong'
+                  : ''
+            } ${
+                getCurrentQuestion.selected  != null &&
+                index != getCurrentQuestion.selected
+                  ? 'disabled'
+                  : ''
+            }`"
         >
           <input 
             type="radio"
+            :name="getCurrentQuestion.index"
+            :value="index"
+            v-model="getCurrentQuestion.selected"
+            :disabled="getCurrentQuestion.selected"
+            @change="setAnswer"
           >
-          <span>{{ 1 }}</span>
-        </label>
-
-        <label 
-            class="`option correct`"
-        >
-          <input 
-            type="radio"
-          >
-          <span>{{2 }}</span>
-        </label>
-
-        <label 
-            class="`option correct`"
-        >
-          <input 
-            type="radio"
-          >
-          <span>{{ 3 }}</span>
+          <span>{{ option }}</span>
         </label>
       </div>
 
-      <button>
+      <button
+        @click="nextQuestion"
+        :disabled="!getCurrentQuestion.selected">
         {{ 
-            'Next Question'
+            getCurrentQuestion.index == questions.length - 1
+            ? 'Select an option'
+            : 'Next Question'
         }}
       >
 
@@ -82,6 +85,37 @@ const questions = ref([
       selected: null
     },
 ])
+
+const quizCompleted = ref(false)
+const currentQuestion = ref(0)
+const score = computed(() => {
+  let value = 0
+  questions.value.map(q => {
+    if(q.selected == q.answer){
+      value++
+    }
+  })
+  return value
+})
+
+const getCurrentQuestion = computed(() => {
+  let question = questions.value[currentQuestion.value]
+  question.index = currentQuestion.value
+  return question
+})
+
+const setAnswer = evt => {
+  questions.value[currentQuestion.value].selected = evt.target.value
+  evt.target.value = null
+}
+
+const nextQuestion = () => {
+  if(currentQuestion.value < questions.value.length - 1){
+    currentQuestion.value++
+  }else{
+    quizCompleted.value = true
+  }
+}
 
 </script>
 
