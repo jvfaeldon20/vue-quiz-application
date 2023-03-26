@@ -2,9 +2,8 @@
   <main class="app">
     <h1>Quiz App</h1>
     <section class="quiz" v-if="!quizCompleted">
-      <div class="quiz-info">
-        <span class="question">{{ getCurrentQuestion.question }}</span>
-        <span class="score">Score {{ score }}/{{ questions.length }}</span>
+      <div class="question-no">QUESTION {{ currentQuestion+1 }}/{{ questions.length }}</div>
+      <div class="question">{{ getCurrentQuestion.question }}
       </div>
 
       <div class="options">
@@ -40,17 +39,20 @@
         :disabled="!getCurrentQuestion.selected">
         {{ 
             getCurrentQuestion.index == questions.length - 1
-            ? 'Select an option'
-            : 'Next Question'
+            ? 'Submit'
+            : 'Next'
         }}
-      >
-
       </button>
     </section>
 
     <section v-else>
-        <h2>You have finished the quiz!</h2>
-        <p>Your score is {{ score }} / {{ questions.length }}</p>
+        <p>You have finished the quiz!</p>
+        <div class="score-info">
+          <p>Your score is {{ score }} / {{ questions.length }}</p><br>
+          <h1 class="course-level">{{ score == 0 ? score_info[0].level : score_info[score-1].level }}</h1>
+          <p class="course-details">Check out course Test&Train Self-Study {{ score_info[0].level }}.</p>
+          <a :href="score_info[0].link" target="_blank">Go to details</a>
+        </div>
     </section>
 
   </main>
@@ -61,35 +63,56 @@ import { ref, computed } from 'vue'
  
 const questions = ref([
     {
-      question: "Question A?",
+      question: "Jack loves working in Tokyo but he can't ________ Japanese yet.",
       answer:0,
       options: [
-        'answer a',
-        'answer b',
-        'answer c',
+        'speak',
+        'talk',
+        'say',
+        'tell'
       ],
       selected: null
     },
     {
-      question: "Question B?",
-      answer:2,
+      question: "Would you like to ________ shopping with me this afternoon?",
+      answer:3,
       options: [
-        'answer a',
-        'answer b',
-        'answer c'
+        'do',
+        'make',
+        'get',
+        'go'
       ],
       selected: null
     },
     {
-      question: "What is C?",
+      question: "Please don't forget to ring me when you ________ home.",
       answer:1,
       options: [
-        'answer a',
-        'answer b',
-        'answer c',
+        'will get',
+        'get',
+        'are going to get',
+        'are getting'
       ],
       selected: null
     },
+])
+
+const score_info = ref([
+    {
+      score_for: "Low Score",
+      level: "B2 First, C1 Advanced",
+      link:"https://order.cambridge.org/basket?token=1167172d-e16c-451c-8f27-1fb01efcda99&lang=en&cur=EUR&returnurl=https%3A%2F%2Fwww.testandtrain.com&_ga=&clientId=&sessionId=",
+    },
+    {
+      score_for: "Average Score",
+      level: "B2 First for Schools",
+      link:"https://order.cambridge.org/basket?token=e8892060-0fe8-43bd-bd5e-bcecadac6093&lang=en&cur=EUR&returnurl=https%3A%2F%2Fwww.testandtrain.com&_ga=&clientId=&sessionId=",
+    },
+    {
+      score_for: "High Score",
+      level: "B1 Preliminary for Schools, A2 Key for Schools",
+      link:"https://order.cambridge.org/basket?token=24df1c52-13ee-4258-90e7-f0a1e6350bd1&lang=en&cur=EUR&returnurl=https%3A%2F%2Fwww.testandtrain.com&_ga=&clientId=&sessionId=",
+    }
 ])
 
 const quizCompleted = ref(false)
@@ -139,7 +162,7 @@ body {
 }
 
 .app {
-  width: 500px;
+  width: 12;
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -153,26 +176,21 @@ h1 {
 
 .quiz{
   background-color: #382a4b;
-  padding: 1rem;
+  padding: 2rem;
   width: 100%;
   max-width: 640px;
   border-radius: 0.5rem;
 }
 
-.quiz-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.quiz-info .question{
+.question{
   color: #8f8f8f;
   font-size: 1.25rem;
 }
 
-.quiz-info .score {
+.quiz-info .question-no {
   color: #fff;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  padding-bottom: 2rem;
 }
 
 .options {
@@ -213,7 +231,7 @@ h1 {
   display:none
 }
 
-button{
+button, a{
   appearance: none;
   outline: none;
   border: none;
@@ -241,5 +259,18 @@ p {
   color: #8f8f8f;
   font-size: 1.25rem;
   text-align: center;
+}
+
+.question{
+  margin-bottom: 10px;
+}
+
+.score-info .course-details{
+  margin-bottom: 2rem;
+}
+
+.score-info .course-level{
+  padding: 2rem;
+  background: #2d213f;
 }
 </style>
