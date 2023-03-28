@@ -51,10 +51,11 @@
             <p>Your score is {{ score }} / {{ questions.length }}</p><br>
             <h1 class="course-level">{{ score == 0 ? score_info[0].level : score_info[score-1].level }}</h1>
             <p class="course-details">Check out course Test&Train Self-Study {{ score_info[0].level }}.</p>
-            <a :href="score_info[0].link" target="_blank">Go to details</a>
+            <a class="btn-checkout" :href="score_info[0].link" target="_blank">Checkout details</a>
           </div>
-      </section>
-  
+          <router-link  class="btn-homepage" :to="{name: 'home'}">Go to Homepage</router-link>
+        </section>
+        
     </main>
   </template>
   
@@ -265,6 +266,10 @@
     margin-bottom: 10px;
   }
   
+  .score-info {
+    margin-bottom: 20px;
+  }
+
   .score-info .course-details{
     margin-bottom: 2rem;
   }
@@ -272,5 +277,15 @@
   .score-info .course-level{
     padding: 2rem;
     background: #2d213f;
+  }
+
+  .btn-checkout {
+    text-decoration: none;
+  }
+
+  .btn-homepage{
+    background: none;
+    color: #fff;
+    text-decoration: none;
   }
   </style>
