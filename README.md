@@ -17,8 +17,8 @@ A simple multiple-choice quiz application with a course recommendation upon comp
 <img align="left" alt="Git" width="25px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" />
 <img align="left" alt="Jest" width="25px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" />
 
-<br />
+---
 
 
-# Overview
-<a href ="https://vquiz-app.netlify.app/">Vue Quiz App</a>
+### 🖥️ Checkout the website
+<a href="https://vquiz-app.netlify.app/" style="padding: 5px; color:#fff; background-color:#271c36 "> Vue Quiz App</a>
