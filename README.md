@@ -20,4 +20,4 @@ A simple multiple-choice quiz application with a course recommendation upon comp
 <br>
 
 ### 🖥️ Checkout the website
-<a href="https://vquiz-app.netlify.app/" style="padding: 5px; color:#fff; background-color:#271c36 "> Vue Quiz App</a>
+<a href="https://vquiz-app.netlify.app/" target="_blank" style="padding: 5px; color:#fff; background-color:#271c36 "> Vue Quiz App</a>
